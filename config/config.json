@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "peel-classic-quick-links-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/peelClassicQuickLinks/PeelClassicQuickLinksWebPart.js",
+          "manifest": "./src/webparts/peelClassicQuickLinks/PeelClassicQuickLinksWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "PeelClassicQuickLinksWebPartStrings": "lib/webparts/peelClassicQuickLinks/loc/{locale}.js"
+  }
+}
