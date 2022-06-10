@@ -12,7 +12,7 @@ import PeelClassicQuickLinks from './components/PeelClassicQuickLinks';
 import { IPeelClassicQuickLinksProps } from './components/IPeelClassicQuickLinksProps';
 
 export interface IPeelClassicQuickLinksWebPartProps {
-  description: string;
+  wpTitle: string;
 }
 
 export default class PeelClassicQuickLinksWebPart extends BaseClientSideWebPart<IPeelClassicQuickLinksWebPartProps> {
@@ -21,7 +21,8 @@ export default class PeelClassicQuickLinksWebPart extends BaseClientSideWebPart<
     const element: React.ReactElement<IPeelClassicQuickLinksProps> = React.createElement(
       PeelClassicQuickLinks,
       {
-        description: this.properties.description
+        wpTitle: this.properties.wpTitle,
+        context: this.context
       }
     );
 
@@ -47,9 +48,11 @@ export default class PeelClassicQuickLinksWebPart extends BaseClientSideWebPart<
             {
               groupName: strings.BasicGroupName,
               groupFields: [
-                PropertyPaneTextField('description', {
-                  label: strings.DescriptionFieldLabel
-                })
+                PropertyPaneTextField('wpTitle', {
+                  label: 'Links Title',
+                  value: this.properties.wpTitle,
+                  description: 'e.g. My Quick Links - Classic'
+                }),
               ]
             }
           ]

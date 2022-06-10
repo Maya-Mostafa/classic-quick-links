@@ -22,7 +22,7 @@
     "description": { "default": "Peel Classic Quick Links description" },
     "officeFabricIconFontName": "Page",
     "properties": {
-      "description": "Peel Classic Quick Links"
+      "wpTitle": "Quick Links - Classic"
     }
   }]
 }

@@ -1,25 +1,42 @@
 import * as React from 'react';
 import styles from './PeelClassicQuickLinks.module.scss';
 import { IPeelClassicQuickLinksProps } from './IPeelClassicQuickLinksProps';
-import { escape } from '@microsoft/sp-lodash-subset';
+import { getQuickLinks } from '../Services/DataRequests';
+import { TextField } from 'office-ui-fabric-react';
+import ILinks  from './ILinks/ILinks';
 
-export default class PeelClassicQuickLinks extends React.Component<IPeelClassicQuickLinksProps, {}> {
-  public render(): React.ReactElement<IPeelClassicQuickLinksProps> {
+export default function PeelClassicQuickLinks (props: IPeelClassicQuickLinksProps) {
+
+  const [quickLinks, setQuickLinks] = React.useState([]);
+  const [searchTxt, setSearchTxt] = React.useState('');
+
+  React.useEffect(()=>{
+    getQuickLinks(props.context).then(results => {
+      console.log("state results", results);
+      setQuickLinks(results);
+    });
+  }, []);
+
+
     return (
       <div className={ styles.peelClassicQuickLinks }>
-        <div className={ styles.container }>
-          <div className={ styles.row }>
-            <div className={ styles.column }>
-              <span className={ styles.title }>Welcome to SharePoint!</span>
-              <p className={ styles.subTitle }>Customize SharePoint experiences using Web Parts.</p>
-              <p className={ styles.description }>{escape(this.props.description)}</p>
-              <a href="https://aka.ms/spfx" className={ styles.button }>
-                <span className={ styles.label }>Learn more</span>
-              </a>
-            </div>
-          </div>
+        <div className={styles.linksHdrOps}>
+          <TextField
+            onChange={(_: any, text: string) => setSearchTxt(text)}
+            className={styles.linksHdrTxt}
+            label={props.wpTitle}
+            underlined
+            placeholder='Search'
+            value={searchTxt}
+          />
         </div>
+
+        <ILinks
+          linksTitle={props.wpTitle}
+          linksItems={quickLinks}
+          searchTxt = {searchTxt}
+        />
       </div>
     );
-  }
+  
 }
